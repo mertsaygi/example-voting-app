@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.name }}
+  name: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - image: {{ .Values.account_id }}.dkr.ecr.us-east-1.amazonaws.com/ms-challenge-worker:{{ .Values.version }}
+        name: {{ .Values.name }}
+        ports:
+        - containerPort: 80
+          name: {{ .Values.name }}
